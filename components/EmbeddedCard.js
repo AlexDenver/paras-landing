@@ -3,6 +3,7 @@ import axios from 'axios'
 import Link from 'next/link'
 
 import { parseImgUrl, prettyBalance } from '../utils/common'
+import CardLoader from '../components/CardLoader'
 import Card from './Card'
 import { useRouter } from 'next/router'
 import CardDetailModal from './CardDetailModal'
@@ -36,82 +37,88 @@ const EmbeddedCard = ({ tokenId }) => {
 	return (
 		<Fragment>
 			<CardDetailModal tokens={[localToken]} />
-			<div className="w-full m-auto">
-				<Card
-					imgUrl={parseImgUrl(localToken?.metadata?.image, null, {
-						width: `300`,
-					})}
-					imgBlur={localToken?.metadata?.blurhash}
-					token={{
-						name: localToken?.metadata?.name,
-						collection: localToken?.metadata?.collection,
-						description: localToken?.metadata?.description,
-						creatorId: localToken?.creatorId,
-						supply: localToken?.supply,
-						tokenId: localToken?.tokenId,
-						createdAt: localToken?.createdAt,
-					}}
-					initialRotate={{
-						x: 0,
-						y: 0,
-					}}
-				/>
-			</div>
-			<div className="text-center">
-				<div className="mt-8">
-					<div className="p-2">
-						<p className="text-gray-400 text-xs">Start From</p>
-						<div className="text-gray-100 text-2xl">
-							{_getLowestPrice(localToken?.ownerships) ? (
-								<div>
-									<div>
-										{prettyBalance(
-											_getLowestPrice(localToken?.ownerships),
-											24,
-											4
-										)}{' '}
-										Ⓝ
-									</div>
-									<div className="text-sm text-gray-400">
-										~ $
-										{prettyBalance(
-											JSBI.BigInt(
-												_getLowestPrice(localToken?.ownerships) *
-													store.nearUsdPrice
-											),
-											24,
-											4
-										)}
-									</div>
+			{localToken ? (
+				<Fragment>
+					<div className="w-full m-auto">
+						<Card
+							imgUrl={parseImgUrl(localToken?.metadata?.image, null, {
+								width: `300`,
+							})}
+							imgBlur={localToken?.metadata?.blurhash}
+							token={{
+								name: localToken?.metadata?.name,
+								collection: localToken?.metadata?.collection,
+								description: localToken?.metadata?.description,
+								creatorId: localToken?.creatorId,
+								supply: localToken?.supply,
+								tokenId: localToken?.tokenId,
+								createdAt: localToken?.createdAt,
+							}}
+							initialRotate={{
+								x: 0,
+								y: 0,
+							}}
+						/>
+					</div>
+					<div className="text-center">
+						<div className="mt-8">
+							<div className="p-2">
+								<p className="text-gray-400 text-xs">Start From</p>
+								<div className="text-gray-100 text-2xl">
+									{_getLowestPrice(localToken?.ownerships) ? (
+										<div>
+											<div>
+												{prettyBalance(
+													_getLowestPrice(localToken?.ownerships),
+													24,
+													4
+												)}{' '}
+												Ⓝ
+											</div>
+											<div className="text-sm text-gray-400">
+												~ $
+												{prettyBalance(
+													JSBI.BigInt(
+														_getLowestPrice(localToken?.ownerships) *
+															store.nearUsdPrice
+													),
+													24,
+													4
+												)}
+											</div>
+										</div>
+									) : (
+										<div className="line-through text-red-600">
+											<span className="text-gray-100">SALE</span>
+										</div>
+									)}
 								</div>
-							) : (
-								<div className="line-through text-red-600">
-									<span className="text-gray-100">SALE</span>
-								</div>
-							)}
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div className="text-center mt-2 text-sm">
-				<Link
-					href={{
-						pathname: router.pathname,
-						query: {
-							...router.query,
-							...{ tokenId: localToken?.tokenId },
-							...{ prevAs: router.asPath },
-						},
-					}}
-					as={`/token/${localToken?.tokenId}`}
-					scroll={false}
-					shallow
-				>
-					<a className="inline-block text-gray-100 cursor-pointer font-semibold border-b-2 border-gray-100">
-						See Details
-					</a>
-				</Link>
-			</div>
+					<div className="text-center mt-2 text-sm">
+						<Link
+							href={{
+								pathname: router.pathname,
+								query: {
+									...router.query,
+									...{ tokenId: localToken?.tokenId },
+									...{ prevAs: router.asPath },
+								},
+							}}
+							as={`/token/${localToken?.tokenId}`}
+							scroll={false}
+							shallow
+						>
+							<a className="inline-block text-gray-100 cursor-pointer font-semibold border-b-2 border-gray-100">
+								See Details
+							</a>
+						</Link>
+					</div>
+				</Fragment>
+			) : (
+				<CardLoader />
+			)}
 		</Fragment>
 	)
 }
