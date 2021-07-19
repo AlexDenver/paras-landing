@@ -130,7 +130,7 @@ const PublicationDetailPage = ({ errorCode, pubDetail, userProfile }) => {
 							ref={textAreaRef}
 							readOnly
 							type="text"
-							value={window.location.href}
+							value={`${window.location.href}?utm_source=copy_link`}
 						/>
 					</div>
 				)}
@@ -199,7 +199,7 @@ const PublicationDetailPage = ({ errorCode, pubDetail, userProfile }) => {
 							<div className="py-2 cursor-pointer">
 								<TwitterShareButton
 									title={`Read ${pubDetail.title} only at @ParasHQ\n\n#card4card #cryptoart #digitalart #tradingcards`}
-									url={window.location.href}
+									url={`${window.location.href}?utm_source=share_twitter`}
 									className="flex items-center w-full"
 								>
 									<TwitterIcon
@@ -214,7 +214,7 @@ const PublicationDetailPage = ({ errorCode, pubDetail, userProfile }) => {
 							</div>
 							<div className="py-2 cursor-pointer">
 								<FacebookShareButton
-									url={window.location.href}
+									url={`${window.location.href}?utm_source=share_facebook`}
 									className="flex items-center w-full"
 								>
 									<FacebookIcon

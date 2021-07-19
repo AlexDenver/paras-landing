@@ -191,7 +191,7 @@ const ActivityDetail = ({ activity, token }) => {
 	const [showModal, setShowModal] = useState(null)
 	const [isCopied, setIsCopied] = useState(false)
 
-	const shareLink = `${process.env.BASE_URL}/activity/${activity._id}`
+	const shareLink = `${process.env.BASE_URL}/activity/${activity._id}?utm_source=copy_link`
 
 	const fetcher = async (key) => {
 		const resp = await axios.get(`${process.env.API_URL}/${key}`)
@@ -252,7 +252,7 @@ const ActivityDetail = ({ activity, token }) => {
 									activity,
 									localToken
 								)} via @ParasHQ\n\n#card4card #cryptoart #digitalart #tradingcards`}
-								url={shareLink}
+								url={`${window.location.href}?utm_source=share_twitter`}
 								className="flex items-center w-full"
 							>
 								<TwitterIcon
@@ -267,7 +267,7 @@ const ActivityDetail = ({ activity, token }) => {
 						</div>
 						<div className="py-2 cursor-pointer">
 							<FacebookShareButton
-								url={shareLink}
+								url={`${window.location.href}?utm_source=share_facebook`}
 								className="flex items-center w-full"
 							>
 								<FacebookIcon

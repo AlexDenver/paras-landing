@@ -878,7 +878,7 @@ const CardDetail = ({ token }) => {
 						ref={copyLinkRef}
 						readOnly
 						type="text"
-						value={window.location.href}
+						value={`${window.location.href}?utm_source=copy_link`}
 					/>
 				</div>
 			)}
@@ -941,7 +941,7 @@ const CardDetail = ({ token }) => {
 						<div className="py-2 cursor-pointer">
 							<TwitterShareButton
 								title={`Checkout ${localToken.metadata.name} from collection ${localToken.metadata.collection} on @ParasHQ\n\n#card4card #cryptoart #digitalart #tradingcards`}
-								url={window.location.href}
+								url={`${window.location.href}?utm_source=share_twitter`}
 								className="flex items-center w-full"
 							>
 								<TwitterIcon
@@ -956,7 +956,7 @@ const CardDetail = ({ token }) => {
 						</div>
 						<div className="py-2 cursor-pointer">
 							<FacebookShareButton
-								url={window.location.href}
+								url={`${window.location.href}?utm_source=share_facebook`}
 								className="flex items-center w-full"
 							>
 								<FacebookIcon
